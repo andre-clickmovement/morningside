@@ -1,32 +1,9 @@
 {
-  "version": 2,
-  "routes": [
+  "rewrites": [
     {
-      "src": "/intake",
-      "dest": "/intake.html"
-    },
-    {
-      "src": "/",
-      "dest": "/index.html"
+      "source": "/intake",
+      "destination": "/intake.html"
     }
   ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        }
-      ]
-    }
-  ]
+  "cleanUrls": true
 }
