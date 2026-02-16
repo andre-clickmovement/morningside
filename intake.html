@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started | LevReg.ai</title>
+    <style>
+        /* ===== Gilroy Font Face ===== */
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('https://fonts.cdnfonts.com/s/16219/Gilroy-Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('https://fonts.cdnfonts.com/s/16219/Gilroy-Medium.woff') format('woff');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* ===== CSS Variables ===== */
+        :root {
+            --color-bg-primary: #000000;
+            --color-bg-secondary: #0a0a0a;
+            --color-bg-card: #111111;
+            --color-accent: #32A1E6;
+            --color-accent-hover: #4db3f0;
+            --color-text-primary: #FFFFFF;
+            --color-text-secondary: #a1a1a1;
+            --color-text-muted: #6b6b6b;
+            --color-border: #222222;
+            --color-error: #ef4444;
+            --font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --border-radius: 12px;
+            --transition-fast: 0.2s ease;
+            --transition-medium: 0.3s ease;
+        }
+
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+        }
+
+        /* Page load transition */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--color-bg-primary);
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        body.loaded::before {
+            opacity: 0;
+        }
+
+        ::selection {
+            background-color: var(--color-accent);
+            color: var(--color-bg-primary);
+        }
+
+        /* ===== Form Container ===== */
+        .form-container {
+            width: 100%;
+            max-width: 520px;
+            background: linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-bg-primary) 100%);
+            border: 1px solid var(--color-border);
+            border-radius: 24px;
+            padding: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200px;
+            background: radial-gradient(ellipse, rgba(50, 161, 230, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ===== Logo ===== */
+        .form-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+
+        .form-logo svg {
+            width: 48px;
+            height: 48px;
+        }
+
+        /* ===== Form Header ===== */
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .form-subtitle {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== Form Styles ===== */
+        .intake-form {
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .form-label .required {
+            color: var(--color-accent);
+        }
+
+        /* Custom Select */
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid var(--color-text-secondary);
+            pointer-events: none;
+            transition: transform var(--transition-fast);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 14px 40px 14px 16px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            color: var(--color-text-primary);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .form-select:hover {
+            border-color: var(--color-text-muted);
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(50, 161, 230, 0.1);
+        }
+
+        .form-select option {
+            background: var(--color-bg-secondary);
+            color: var(--color-text-primary);
+            padding: 12px;
+        }
+
+        /* Text Input */
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            color: var(--color-text-primary);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .form-input:hover {
+            border-color: var(--color-text-muted);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(50, 161, 230, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--color-text-muted);
+        }
+
+        /* Textarea */
+        .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            color: var(--color-text-primary);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            min-height: 100px;
+            resize: vertical;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .form-textarea:hover {
+            border-color: var(--color-text-muted);
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(50, 161, 230, 0.1);
+        }
+
+        .form-textarea::placeholder {
+            color: var(--color-text-muted);
+        }
+
+        /* Checkbox Group */
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-custom {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--color-border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+            flex-shrink: 0;
+        }
+
+        .checkbox-custom svg {
+            width: 14px;
+            height: 14px;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all var(--transition-fast);
+        }
+
+        .checkbox-item:hover .checkbox-custom {
+            border-color: var(--color-accent);
+        }
+
+        .checkbox-item input[type="checkbox"]:checked + .checkbox-custom {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .checkbox-item input[type="checkbox"]:checked + .checkbox-custom svg {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .checkbox-label {
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+            transition: color var(--transition-fast);
+        }
+
+        .checkbox-item:hover .checkbox-label {
+            color: var(--color-text-primary);
+        }
+
+        /* Submit Button */
+        .form-submit {
+            width: 100%;
+            padding: 16px 32px;
+            background: var(--color-accent);
+            color: var(--color-bg-primary);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all var(--transition-fast);
+            margin-top: 32px;
+        }
+
+        .form-submit:hover {
+            background: var(--color-accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .form-submit:active {
+            transform: translateY(0);
+        }
+
+        .form-submit svg {
+            width: 18px;
+            height: 18px;
+            transition: transform var(--transition-fast);
+        }
+
+        .form-submit:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Error Message */
+        .error-message {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 16px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: var(--border-radius);
+            margin-bottom: 24px;
+            color: var(--color-error);
+            font-size: 0.9rem;
+        }
+
+        .error-message.show {
+            display: flex;
+        }
+
+        .error-message svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .error-dismiss {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: var(--color-error);
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .error-dismiss:hover {
+            opacity: 0.7;
+        }
+
+        /* Success State */
+        .success-state {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .success-state.show {
+            display: block;
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            background: rgba(50, 161, 230, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-icon svg {
+            width: 32px;
+            height: 32px;
+            color: var(--color-accent);
+        }
+
+        .success-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .success-message {
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+            margin-bottom: 32px;
+        }
+
+        .success-redirect {
+            color: var(--color-text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Hide form when success */
+        .intake-form.hidden {
+            display: none;
+        }
+
+        /* Footer */
+        .form-footer {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .form-footer-text {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        .form-footer-link {
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .form-footer-link:hover {
+            color: var(--color-accent-hover);
+        }
+
+        /* Loading State */
+        .form-submit.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .form-submit.loading .btn-text {
+            display: none;
+        }
+
+        .form-submit.loading .btn-loader {
+            display: block;
+        }
+
+        .btn-loader {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--color-bg-primary);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 600px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            .form-container {
+                padding: 32px 24px;
+                border-radius: 16px;
+            }
+
+            .form-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <!-- Logo -->
+        <div class="form-logo">
+            <img src="https://customer-assets.emergentagent.com/job_7e29061e-ffd5-4596-a601-775e365ccb93/artifacts/eiumndvy_LevRegWhiteBlue_Logo.png" alt="LevReg.Ai" style="height: 48px; width: auto;">
+        </div>
+
+        <!-- Header -->
+        <div class="form-header">
+            <h1 class="form-title">Get in Touch</h1>
+            <p class="form-subtitle">Tell us where you're at, and we'll show you what's possible.</p>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="error-message">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span id="error-text">Please fill in all required fields.</span>
+            <button class="error-dismiss" onclick="hideError()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Success State -->
+        <div class="success-state" id="success-state">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+            </div>
+            <h2 class="success-title">We've got it.</h2>
+            <p class="success-message">The next move is ours. We'll be in touch within 24 hours.</p>
+            <p class="success-redirect">Redirecting you to learn more about LevReg...</p>
+        </div>
+
+        <!-- Form -->
+        <form class="intake-form" id="intake-form">
+            <!-- Name -->
+            <div class="form-group">
+                <label class="form-label">Your Name <span class="required">*</span></label>
+                <input type="text" class="form-input" name="name" placeholder="John Smith" required>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label class="form-label">Email Address <span class="required">*</span></label>
+                <input type="email" class="form-input" name="email" placeholder="john@company.com" required>
+            </div>
+
+            <!-- Company Size -->
+            <div class="form-group">
+                <label class="form-label">Company Size <span class="required">*</span></label>
+                <div class="select-wrapper">
+                    <select class="form-select" name="company_size" required>
+                        <option value="" disabled selected>Select company size</option>
+                        <option value="1-10">1-10 employees</option>
+                        <option value="11-50">11-50 employees</option>
+                        <option value="51-100">51-100 employees</option>
+                        <option value="101-500">101-500 employees</option>
+                        <option value="500+">More than 500 employees</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Annual Revenue -->
+            <div class="form-group">
+                <label class="form-label">Company's Annual Revenue</label>
+                <div class="select-wrapper">
+                    <select class="form-select" name="annual_revenue">
+                        <option value="" disabled selected>Select annual revenue</option>
+                        <option value="<500K">Less than $500K</option>
+                        <option value="500K-1M">$500K - $1M</option>
+                        <option value="1M-5M">$1M - $5M</option>
+                        <option value="5M-10M">$5M - $10M</option>
+                        <option value="10M+">More than $10M</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Project Budget -->
+            <div class="form-group">
+                <label class="form-label">Project Budget <span class="required">*</span></label>
+                <div class="select-wrapper">
+                    <select class="form-select" name="project_budget" required>
+                        <option value="" disabled selected>Select budget range</option>
+                        <option value="<10K">Less than $10K</option>
+                        <option value="10K-25K">$10K - $25K</option>
+                        <option value="25K-50K">$25K - $50K</option>
+                        <option value="50K-100K">$50K - $100K</option>
+                        <option value="100K+">More than $100K</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Services Interest -->
+            <div class="form-group">
+                <label class="form-label">What are you interested in?</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="services" value="identifying">
+                        <span class="checkbox-custom">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </span>
+                        <span class="checkbox-label">Identifying AI opportunities</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="services" value="education">
+                        <span class="checkbox-custom">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </span>
+                        <span class="checkbox-label">Educating your team on AI</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="services" value="development">
+                        <span class="checkbox-custom">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </span>
+                        <span class="checkbox-label">Developing custom AI solutions</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="services" value="automation">
+                        <span class="checkbox-custom">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </span>
+                        <span class="checkbox-label">Automating existing workflows</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Message -->
+            <div class="form-group">
+                <label class="form-label">Tell us about your biggest challenge</label>
+                <textarea class="form-textarea" name="message" placeholder="What's the one thing you wish AI could handle for you?"></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="form-submit">
+                <span class="btn-text">Submit</span>
+                <span class="btn-loader"></span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-text">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                </svg>
+            </button>
+        </form>
+
+        <!-- Footer -->
+        <div class="form-footer" id="form-footer">
+            <p class="form-footer-text">
+                Or email us directly at <a href="mailto:info@levreg.ai" class="form-footer-link">info@levreg.ai</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Page load animation
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+
+        const form = document.getElementById('intake-form');
+        const errorMessage = document.getElementById('error-message');
+        const errorText = document.getElementById('error-text');
+        const successState = document.getElementById('success-state');
+        const formFooter = document.getElementById('form-footer');
+
+        function showError(message) {
+            errorText.textContent = message;
+            errorMessage.classList.add('show');
+        }
+
+        function hideError() {
+            errorMessage.classList.remove('show');
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideError();
+
+            const submitBtn = form.querySelector('.form-submit');
+            const formData = new FormData(form);
+
+            // Validate required fields
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const companySize = formData.get('company_size');
+            const projectBudget = formData.get('project_budget');
+
+            if (!name || !email || !companySize || !projectBudget) {
+                showError('Please fill in all required fields.');
+                return;
+            }
+
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('Please enter a valid email address.');
+                return;
+            }
+
+            // Show loading state
+            submitBtn.classList.add('loading');
+
+            // Simulate form submission (replace with actual API call)
+            try {
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                // On success
+                form.classList.add('hidden');
+                formFooter.style.display = 'none';
+                successState.classList.add('show');
+
+                // Redirect to landing page after 3 seconds
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 3000);
+
+            } catch (error) {
+                submitBtn.classList.remove('loading');
+                showError('Something went wrong. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
